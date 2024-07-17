@@ -1,7 +1,7 @@
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
-function Rooms() {
+function Capsules() {
   return (
     <Row type="horizontal">
       <Heading as="h1">모든 방</Heading>
@@ -9,4 +9,4 @@ function Rooms() {
   );
 }
 
-export default Rooms;
+export default Capsules;

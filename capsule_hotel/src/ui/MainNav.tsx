@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import {
-  HiOutlineCalendarDays,
-  HiOutlineCog6Tooth,
-  HiOutlineHome,
-  HiSquaresPlus,
-  HiOutlineUserPlus,
-} from "react-icons/hi2";
 
+import {
+  RiHome4Line,
+  RiCapsuleFill,
+  RiCalendar2Fill,
+  RiUserAddLine,
+  RiSettings4Line,
+} from "react-icons/ri";
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -58,32 +58,38 @@ function MainNav() {
       <NavList>
         <li>
           <StyledNavLink to="/dashboard">
-            <HiOutlineHome />
+            {/* <HiOutlineHome /> */}
+            {/* <RxGear /> */}
+            <RiHome4Line />
             <span>홈</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="/rooms">
-            <HiSquaresPlus />
-            <span>방</span>
+          <StyledNavLink to="/capsules">
+            {/* <HiSquaresPlus /> */}
+            <RiCapsuleFill />
+            <span>캡슐</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/reservations">
-            <HiOutlineCalendarDays />
+            {/* <HiOutlineCalendarDays /> */}
+            <RiCalendar2Fill />
             <span>예약</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/users">
-            <HiOutlineUserPlus />
+            {/* <HiOutlineUserPlus /> */}
+            <RiUserAddLine />
             <span>관리자 추가</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/settings">
-            <HiOutlineCog6Tooth />
+            {/* <HiOutlineCog6Tooth /> */}
+            <RiSettings4Line />
             <span>설정</span>
           </StyledNavLink>
         </li>
