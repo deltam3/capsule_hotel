@@ -16,6 +16,7 @@ const TableHeader = styled.header`
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
   column-gap: 2.4rem;
   align-items: center;
+
   text-transform: uppercase;
   letter-spacing: 0.4px;
   font-weight: 600;
@@ -37,6 +38,7 @@ function CapsuleTable() {
 
   if (isPending) return <Spinner />;
 
+  console.log(capsules);
   return (
     <Table role="table">
       <TableHeader role="row">
@@ -47,9 +49,9 @@ function CapsuleTable() {
         <div>할인 값</div>
         <div></div>
       </TableHeader>
-      {/* {capsules.map((capsule) => (
+      {capsules.map((capsule) => (
         <CapsuleRow capsule={capsule} key={capsule.id} />
-      ))} */}
+      ))}
     </Table>
   );
 }
