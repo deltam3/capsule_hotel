@@ -43,6 +43,8 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+import { toast } from "react-hot-toast";
+
 function CapsuleRow({ capsule }) {
   const {
     id: capsuleId,
@@ -58,13 +60,13 @@ function CapsuleRow({ capsule }) {
   const { isPending: isDeleting, mutate } = useMutation({
     mutationFn: (id: number) => deleteCapsule(id),
     onSuccess: () => {
-      alert("캡슐 삭제 완료");
+      toast.success("캡슐 삭제 완료");
 
       queryClient.invalidateQueries({
         queryKey: ["capsules"],
       });
     },
-    onError: (err) => alert(err.message),
+    onError: (err) => toast.error(err.message),
   });
 
   return (
