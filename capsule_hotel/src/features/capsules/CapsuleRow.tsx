@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { useState } from "react";
+
 import { formatCurrency } from "../../utils/helper";
+import { deleteCapsule } from "../../services/apiCapsules";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TableRow = styled.div`
   display: grid;
@@ -52,6 +54,19 @@ function CapsuleRow({ capsule }) {
     description,
   } = capsule;
 
+  const queryClient = useQueryClient();
+  const { isPending: isDeleting, mutate } = useMutation({
+    mutationFn: (id: number) => deleteCapsule(id),
+    onSuccess: () => {
+      alert("캡슐 삭제 완료");
+
+      queryClient.invalidateQueries({
+        queryKey: ["capsules"],
+      });
+    },
+    onError: (err) => alert(err.message),
+  });
+
   return (
     <>
       <TableRow role="row">
@@ -64,6 +79,11 @@ function CapsuleRow({ capsule }) {
         ) : (
           <span>&mdash;</span>
         )}
+        <div>
+          <button onClick={() => mutate(capsuleId)} disabled={isDeleting}>
+            삭제
+          </button>
+        </div>
       </TableRow>
     </>
   );

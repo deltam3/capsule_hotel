@@ -9,3 +9,13 @@ export async function getCapsules() {
 
   return capsules;
 }
+
+export async function deleteCapsule(id: number) {
+  const { data, error } = await supabase.from("capsules").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("캡슐 방을 삭제할 수 없었습니다.");
+  }
+
+  return data;
+}
