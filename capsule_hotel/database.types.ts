@@ -145,26 +145,26 @@ export type Database = {
         Row: {
           created_at: string;
           id: number;
-          maxBookingLength: number | null;
-          maxGuestsPerBooking: number | null;
+          maxCustomersPerReservation: number | null;
+          maxReservationLength: number | null;
           mealPrice: number | null;
-          minBookingLength: number | null;
+          minReservationLength: number | null;
         };
         Insert: {
           created_at?: string;
           id?: number;
-          maxBookingLength?: number | null;
-          maxGuestsPerBooking?: number | null;
+          maxCustomersPerReservation?: number | null;
+          maxReservationLength?: number | null;
           mealPrice?: number | null;
-          minBookingLength?: number | null;
+          minReservationLength?: number | null;
         };
         Update: {
           created_at?: string;
           id?: number;
-          maxBookingLength?: number | null;
-          maxGuestsPerBooking?: number | null;
+          maxCustomersPerReservation?: number | null;
+          maxReservationLength?: number | null;
           mealPrice?: number | null;
-          minBookingLength?: number | null;
+          minReservationLength?: number | null;
         };
         Relationships: [];
       };
