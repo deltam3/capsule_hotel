@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
-import { getCapsules } from "../../services/apiCapsules";
 import Spinner from "../../ui/Spinner";
 import CapsuleRow from "./CapsuleRow";
+import { useCapsules } from "./useCapsules";
 
 const Table = styled.div`
   overflow: hidden;
@@ -27,18 +26,10 @@ const TableHeader = styled.header`
 `;
 
 function CapsuleTable() {
-  const {
-    isPending,
-    data: capsules,
-    error,
-  } = useQuery({
-    queryKey: ["capsules"],
-    queryFn: getCapsules,
-  });
+  const { isPending, capsules } = useCapsules();
 
   if (isPending) return <Spinner />;
 
-  console.log(capsules);
   return (
     <Table role="table">
       <TableHeader role="row">

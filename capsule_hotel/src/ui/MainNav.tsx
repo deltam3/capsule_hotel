@@ -58,8 +58,6 @@ function MainNav() {
       <NavList>
         <li>
           <StyledNavLink to="/dashboard">
-            {/* <HiOutlineHome /> */}
-            {/* <RxGear /> */}
             <RiHome4Line />
             <span>홈</span>
           </StyledNavLink>
@@ -67,28 +65,24 @@ function MainNav() {
 
         <li>
           <StyledNavLink to="/capsules">
-            {/* <HiSquaresPlus /> */}
             <RiCapsuleFill />
             <span>캡슐</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/reservations">
-            {/* <HiOutlineCalendarDays /> */}
             <RiCalendar2Fill />
             <span>예약</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/users">
-            {/* <HiOutlineUserPlus /> */}
             <RiUserAddLine />
             <span>관리자 추가</span>
           </StyledNavLink>
         </li>
         <li>
           <StyledNavLink to="/settings">
-            {/* <HiOutlineCog6Tooth /> */}
             <RiSettings4Line />
             <span>설정</span>
           </StyledNavLink>

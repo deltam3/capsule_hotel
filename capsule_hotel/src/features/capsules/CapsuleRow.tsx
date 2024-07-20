@@ -1,8 +1,6 @@
 import styled from "styled-components";
-
+import { useState } from "react";
 import { formatCurrency } from "../../utils/helper";
-import { deleteCapsule } from "../../services/apiCapsules";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TableRow = styled.div`
   display: grid;
@@ -43,9 +41,12 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-import { toast } from "react-hot-toast";
+import CreateCapsuleForm from "./CreateCapsuleForm";
+import { useDeleteCapsule } from "./useDeleteCapsule";
 
 function CapsuleRow({ capsule }) {
+  const [showForm, setShowForm] = useState(false);
+  const { isDeleting, deleteCapsule } = useDeleteCapsule();
   const {
     id: capsuleId,
     name,
@@ -55,19 +56,6 @@ function CapsuleRow({ capsule }) {
     image,
     description,
   } = capsule;
-
-  const queryClient = useQueryClient();
-  const { isPending: isDeleting, mutate } = useMutation({
-    mutationFn: (id: number) => deleteCapsule(id),
-    onSuccess: () => {
-      toast.success("캡슐 삭제 완료");
-
-      queryClient.invalidateQueries({
-        queryKey: ["capsules"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
 
   return (
     <>
@@ -82,11 +70,16 @@ function CapsuleRow({ capsule }) {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={() => mutate(capsuleId)} disabled={isDeleting}>
+          <button onClick={() => setShowForm((show) => !show)}>수정</button>
+          <button
+            onClick={() => deleteCapsule(capsuleId)}
+            disabled={isDeleting}
+          >
             삭제
           </button>
         </div>
       </TableRow>
+      {showForm && <CreateCapsuleForm capsuleToEdit={capsule} />}
     </>
   );
 }

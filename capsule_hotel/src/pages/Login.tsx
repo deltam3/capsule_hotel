@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const LoginLayout = styled.main`
   display: grid;
-  /* grid-template-columns: 48rem; */
+  grid-template-columns: 48rem;
   align-content: center;
   justify-content: center;
   gap: 3.2rem;
