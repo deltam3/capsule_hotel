@@ -43,10 +43,13 @@ const Discount = styled.div`
 
 import CreateCapsuleForm from "./CreateCapsuleForm";
 import { useDeleteCapsule } from "./useDeleteCapsule";
+import { useCreateCapsule } from "./useCreateCapsule";
 
 function CapsuleRow({ capsule }) {
   const [showForm, setShowForm] = useState(false);
+  const { isCreating, createCapsule } = useCreateCapsule();
   const { isDeleting, deleteCapsule } = useDeleteCapsule();
+
   const {
     id: capsuleId,
     name,
@@ -56,6 +59,17 @@ function CapsuleRow({ capsule }) {
     image,
     description,
   } = capsule;
+
+  function handleDuplicate() {
+    createCapsule({
+      name: `${name} 복사본`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
 
   return (
     <>
@@ -70,6 +84,9 @@ function CapsuleRow({ capsule }) {
           <span>&mdash;</span>
         )}
         <div>
+          <button disabled={isCreating} onClick={handleDuplicate}>
+            복사
+          </button>
           <button onClick={() => setShowForm((show) => !show)}>수정</button>
           <button
             onClick={() => deleteCapsule(capsuleId)}
