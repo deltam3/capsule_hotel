@@ -101,7 +101,7 @@ function CapsuleRow({ capsule }) {
             </Modal.Open>
             <Modal.Window name="delete">
               <ConfirmDelete
-                resourceName="capsules"
+                resourceName="캡슐방"
                 disabled={isDeleting}
                 onConfirm={() => deleteCapsule(capsuleId)}
               />
