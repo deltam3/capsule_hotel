@@ -1,3 +1,4 @@
+import { Database } from "../../database.types";
 import supabase from "./supabase";
 
 export async function getSettings() {
@@ -10,7 +11,9 @@ export async function getSettings() {
   return data;
 }
 
-export async function updateSetting(newSetting) {
+export async function updateSetting(
+  newSetting: Database["public"]["Tables"]["settings"]["Update"]
+) {
   const { data, error } = await supabase
     .from("settings")
     .update(newSetting)
