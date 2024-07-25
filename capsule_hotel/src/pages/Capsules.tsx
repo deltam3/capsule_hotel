@@ -2,13 +2,9 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 import CapsuleTable from "../features/capsules/CapsuleTable";
-
-import { useState } from "react";
-import Button from "../ui/Button";
-import CreateCapsuleForm from "../features/capsules/CreateCapsuleForm";
+import AddCapsule from "../features/capsules/AddCapsule";
 
 function Capsules() {
-  const [showForm, setShowForm] = useState(false);
   return (
     <>
       <Row type="horizontal">
@@ -18,10 +14,7 @@ function Capsules() {
 
       <Row>
         <CapsuleTable />
-        <Button onClick={() => setShowForm((show) => !show)}>
-          새로운 캡슐 방 추가하기
-        </Button>
-        {showForm && <CreateCapsuleForm />}
+        <AddCapsule />
       </Row>
     </>
   );

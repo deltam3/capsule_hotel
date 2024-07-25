@@ -10,7 +10,7 @@ import FormRow from "../../ui/FormRow";
 import { useCreateCapsule } from "./useCreateCapsule";
 import { useEditCapsule } from "./useEditCapsule";
 
-function CreateCapsuleForm({ capsuleToEdit = {} }) {
+function CreateCapsuleForm({ capsuleToEdit = {}, onCloseModal }) {
   const { isCreating, createCapsule } = useCreateCapsule();
   const { isEditing, editCapsule } = useEditCapsule();
   const isWorking = isCreating || isEditing;
@@ -32,6 +32,7 @@ function CreateCapsuleForm({ capsuleToEdit = {} }) {
         {
           onSuccess: (data) => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -41,6 +42,7 @@ function CreateCapsuleForm({ capsuleToEdit = {} }) {
         {
           onSuccess: (data) => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -51,7 +53,10 @@ function CreateCapsuleForm({ capsuleToEdit = {} }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="캡슐 이름" error={errors?.name?.message}>
         <Input
           type="text"
@@ -131,7 +136,11 @@ function CreateCapsuleForm({ capsuleToEdit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           취소
         </Button>
         <Button disabled={isWorking}>

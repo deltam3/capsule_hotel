@@ -41,12 +41,10 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-import CreateCapsuleForm from "./CreateCapsuleForm";
 import { useDeleteCapsule } from "./useDeleteCapsule";
 import { useCreateCapsule } from "./useCreateCapsule";
 
 function CapsuleRow({ capsule }) {
-  const [showForm, setShowForm] = useState(false);
   const { isCreating, createCapsule } = useCreateCapsule();
   const { isDeleting, deleteCapsule } = useDeleteCapsule();
 
@@ -96,7 +94,6 @@ function CapsuleRow({ capsule }) {
           </button>
         </div>
       </TableRow>
-      {showForm && <CreateCapsuleForm capsuleToEdit={capsule} />}
     </>
   );
 }

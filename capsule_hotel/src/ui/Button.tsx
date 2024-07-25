@@ -1,5 +1,24 @@
 import styled, { css } from "styled-components";
 
+const sizes = {
+  small: css`
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
+    font-weight: 600;
+    text-align: center;
+  `,
+  medium: css`
+    font-size: 1.4rem;
+    padding: 1.2rem 1.6rem;
+    font-weight: 500;
+  `,
+  large: css`
+    font-size: 1.6rem;
+    padding: 1.2rem 2.4rem;
+    font-weight: 500;
+  `,
+};
+
 const variations = {
   primary: css`
     color: var(--color-brand-50);
@@ -28,31 +47,9 @@ const variations = {
   `,
 };
 
-const sizes = {
-  small: css`
-    font-size: 1.2rem;
-    padding: 0.4rem 0.8rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    text-align: center;
-  `,
-  medium: css`
-    font-size: 1.4rem;
-    padding: 1.2rem 1.6rem;
-    font-weight: 500;
-  `,
-  large: css`
-    font-size: 1.6rem;
-    padding: 1.2rem 2.4rem;
-    font-weight: 500;
-  `,
-};
-
 type Custom = {
-  sizes?: keyof typeof sizes;
-  variations?: keyof typeof variations;
-  variation?: string;
-  size?: string;
+  size?: keyof typeof sizes;
+  variation?: keyof typeof variations;
   onClick?: () => void;
 };
 
@@ -61,8 +58,8 @@ const Button = styled.button<Custom>`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
 
-  ${(props) => props.sizes && sizes[props.sizes]};
-  ${(props) => props.variations && variations[props.variations]};
+  ${({ size }) => size && sizes[size]};
+  ${({ variation }) => variation && variations[variation]};
 `;
 
 Button.defaultProps = {
