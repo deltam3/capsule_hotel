@@ -44,6 +44,10 @@ const Discount = styled.div`
 import { useDeleteCapsule } from "./useDeleteCapsule";
 import { useCreateCapsule } from "./useCreateCapsule";
 
+import Modal from "../../ui/Modal";
+import CreateCapsuleForm from "./CreateCapsuleForm";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+
 function CapsuleRow({ capsule }) {
   const { isCreating, createCapsule } = useCreateCapsule();
   const { isDeleting, deleteCapsule } = useDeleteCapsule();
@@ -85,13 +89,24 @@ function CapsuleRow({ capsule }) {
           <button disabled={isCreating} onClick={handleDuplicate}>
             복사
           </button>
-          <button onClick={() => setShowForm((show) => !show)}>수정</button>
-          <button
-            onClick={() => deleteCapsule(capsuleId)}
-            disabled={isDeleting}
-          >
-            삭제
-          </button>
+          <Modal>
+            <Modal.Open opens="edit">
+              <button onClick={() => setShowForm((show) => !show)}>수정</button>
+            </Modal.Open>
+            <Modal.Window name="edit">
+              <CreateCapsuleForm capsuleToEdit={capsule}></CreateCapsuleForm>
+            </Modal.Window>
+            <Modal.Open opens="delete">
+              <button>삭제</button>
+            </Modal.Open>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="capsules"
+                disabled={isDeleting}
+                onConfirm={() => deleteCapsule(capsuleId)}
+              />
+            </Modal.Window>
+          </Modal>
         </div>
       </TableRow>
     </>
