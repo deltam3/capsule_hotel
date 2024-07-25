@@ -47,6 +47,8 @@ import { useCreateCapsule } from "./useCreateCapsule";
 import Modal from "../../ui/Modal";
 import CreateCapsuleForm from "./CreateCapsuleForm";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Menus from "../../ui/Menus";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 
 function CapsuleRow({ capsule }) {
   const { isCreating, createCapsule } = useCreateCapsule();
@@ -86,26 +88,39 @@ function CapsuleRow({ capsule }) {
           <span>&mdash;</span>
         )}
         <div>
-          <button disabled={isCreating} onClick={handleDuplicate}>
-            복사
-          </button>
           <Modal>
-            <Modal.Open opens="edit">
-              <button onClick={() => setShowForm((show) => !show)}>수정</button>
-            </Modal.Open>
-            <Modal.Window name="edit">
-              <CreateCapsuleForm capsuleToEdit={capsule}></CreateCapsuleForm>
-            </Modal.Window>
-            <Modal.Open opens="delete">
-              <button>삭제</button>
-            </Modal.Open>
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                resourceName="캡슐방"
-                disabled={isDeleting}
-                onConfirm={() => deleteCapsule(capsuleId)}
-              />
-            </Modal.Window>
+            <Menus.Menu>
+              <Menus.Toggle id={capsuleId} />
+
+              <Menus.List id={capsuleId}>
+                <Menus.Button
+                  icon={<HiSquare2Stack />}
+                  onClick={handleDuplicate}
+                >
+                  복사
+                </Menus.Button>
+
+                <Modal.Open opens="edit">
+                  <Menus.Button icon={<HiPencil />}>편집</Menus.Button>
+                </Modal.Open>
+
+                <Modal.Open opens="delete">
+                  <Menus.Button icon={<HiTrash />}>삭제</Menus.Button>
+                </Modal.Open>
+              </Menus.List>
+
+              <Modal.Window name="edit">
+                <CreateCapsuleForm capsuleToEdit={capsule} />
+              </Modal.Window>
+
+              <Modal.Window name="delete">
+                <ConfirmDelete
+                  resourceName="캡슐방"
+                  disabled={isDeleting}
+                  onConfirm={() => deleteCapsule(capsuleId)}
+                />
+              </Modal.Window>
+            </Menus.Menu>
           </Modal>
         </div>
       </TableRow>
