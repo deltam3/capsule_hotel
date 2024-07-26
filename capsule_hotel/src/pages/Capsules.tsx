@@ -10,7 +10,6 @@ function Capsules() {
     <>
       <Row type="horizontal">
         <Heading as="h1">모든 캡슐 방</Heading>
-        {/* <span>정렬/필터</span> */}
         <CapsuleTableOperations />
       </Row>
 
