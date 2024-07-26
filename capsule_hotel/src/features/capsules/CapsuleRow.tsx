@@ -1,6 +1,23 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { formatCurrency } from "../../utils/helper";
+import Modal from "../../ui/Modal";
+import CreateCapsuleForm from "./CreateCapsuleForm";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import Menus from "../../ui/Menus";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { useDeleteCapsule } from "./useDeleteCapsule";
+import { useCreateCapsule } from "./useCreateCapsule";
+
+interface Capsule {
+  id: string;
+  name: string;
+  maxCapacity: number;
+  regularPrice: number;
+  discount?: number;
+  image: string;
+  description: string;
+}
 
 const TableRow = styled.div`
   display: grid;
@@ -23,11 +40,15 @@ const Img = styled.img`
   object-position: center;
 `;
 
-const Capsule = styled.div`
+const CapsuleName = styled.div`
   font-size: 1.6rem;
   font-family: "Rubik";
   font-weight: 600;
   color: var(--color-grey-600);
+`;
+
+const Detail = styled.div`
+  font-size: 1.4rem;
 `;
 
 const Price = styled.div`
@@ -41,16 +62,11 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-import { useDeleteCapsule } from "./useDeleteCapsule";
-import { useCreateCapsule } from "./useCreateCapsule";
+interface CapsuleRowProps {
+  capsule: Capsule;
+}
 
-import Modal from "../../ui/Modal";
-import CreateCapsuleForm from "./CreateCapsuleForm";
-import ConfirmDelete from "../../ui/ConfirmDelete";
-import Menus from "../../ui/Menus";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-
-function CapsuleRow({ capsule }) {
+const CapsuleRow: React.FC<CapsuleRowProps> = ({ capsule }) => {
   const { isCreating, createCapsule } = useCreateCapsule();
   const { isDeleting, deleteCapsule } = useDeleteCapsule();
 
@@ -64,7 +80,7 @@ function CapsuleRow({ capsule }) {
     description,
   } = capsule;
 
-  function handleDuplicate() {
+  const handleDuplicate = () => {
     createCapsule({
       name: `${name} 복사본`,
       maxCapacity,
@@ -73,59 +89,54 @@ function CapsuleRow({ capsule }) {
       image,
       description,
     });
-  }
+  };
 
   return (
-    <>
-      <TableRow role="row">
-        <Img src={image} />
-        <Capsule>{name}</Capsule>
-        <div>최대인원 {maxCapacity}명</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
-        <div>
-          <Modal>
-            <Menus.Menu>
-              <Menus.Toggle id={capsuleId} />
+    <TableRow role="row">
+      <Img src={image} />
+      <CapsuleName>{name}</CapsuleName>
+      <Detail>최대인원 {maxCapacity}명</Detail>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
+      <div>
+        <Modal>
+          <Menus.Menu>
+            <Menus.Toggle id={capsuleId} />
 
-              <Menus.List id={capsuleId}>
-                <Menus.Button
-                  icon={<HiSquare2Stack />}
-                  onClick={handleDuplicate}
-                >
-                  복사
-                </Menus.Button>
+            <Menus.List id={capsuleId}>
+              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+                복사
+              </Menus.Button>
 
-                <Modal.Open opens="edit">
-                  <Menus.Button icon={<HiPencil />}>편집</Menus.Button>
-                </Modal.Open>
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>편집</Menus.Button>
+              </Modal.Open>
 
-                <Modal.Open opens="delete">
-                  <Menus.Button icon={<HiTrash />}>삭제</Menus.Button>
-                </Modal.Open>
-              </Menus.List>
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>삭제</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
 
-              <Modal.Window name="edit">
-                <CreateCapsuleForm capsuleToEdit={capsule} />
-              </Modal.Window>
+            <Modal.Window name="edit">
+              <CreateCapsuleForm capsuleToEdit={capsule} />
+            </Modal.Window>
 
-              <Modal.Window name="delete">
-                <ConfirmDelete
-                  resourceName="캡슐방"
-                  disabled={isDeleting}
-                  onConfirm={() => deleteCapsule(capsuleId)}
-                />
-              </Modal.Window>
-            </Menus.Menu>
-          </Modal>
-        </div>
-      </TableRow>
-    </>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="캡슐방"
+                disabled={isDeleting}
+                onConfirm={() => deleteCapsule(+capsuleId)}
+              />
+            </Modal.Window>
+          </Menus.Menu>
+        </Modal>
+      </div>
+    </TableRow>
   );
-}
+};
 
 export default CapsuleRow;

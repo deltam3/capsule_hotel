@@ -1,14 +1,28 @@
-import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import CapsuleRow from "./CapsuleRow";
 import { useCapsules } from "./useCapsules";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import { Database } from "../../../database.types";
+import { useSearchParams } from "react-router-dom";
 
 function CapsuleTable() {
   const { isPending, capsules } = useCapsules();
+  const [searchParams] = useSearchParams();
 
   if (isPending) return <Spinner />;
+
+  const filterValue = searchParams.get("discount") || "all";
+  let filteredCapsules;
+  if (filterValue === "all") {
+    filteredCapsules = capsules;
+  }
+  if (filterValue === "no-discount") {
+    filteredCapsules = capsules.filter((capsule) => capsule.discount === 0);
+  }
+  if (filterValue === "with-discount") {
+    filteredCapsules = capsules.filter((capsule) => capsule.discount > 0);
+  }
 
   return (
     <Menus>
@@ -22,8 +36,8 @@ function CapsuleTable() {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={capsules}
-          render={(capsule) => (
+          data={filteredCapsules}
+          render={(capsule: Database["public"]["Tables"]["capsules"]) => (
             <CapsuleRow capsule={capsule} key={capsule.id} />
           )}
         />
