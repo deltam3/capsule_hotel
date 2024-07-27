@@ -4,12 +4,15 @@ import Menus from "../../ui/Menus";
 import Empty from "../../ui/Empty";
 import { useReservations } from "./useReservations";
 import Spinner from "../../ui/Spinner";
+import Pagination from "../../ui/Pagination";
 
 function ReservationTable() {
-  const { isPending, reservations } = useReservations();
+  const { isPending, reservations, count } = useReservations();
 
   if (isPending) return <Spinner />;
   if (!reservations.length) return <Empty resourceName="예약" />;
+
+  const safeCount = count ?? 0;
 
   return (
     <Menus>
@@ -29,6 +32,10 @@ function ReservationTable() {
             <ReservationRow key={reservation.id} reservation={reservation} />
           )}
         />
+
+        <Table.Footer>
+          <Pagination count={safeCount} />
+        </Table.Footer>
       </Table>
     </Menus>
   );

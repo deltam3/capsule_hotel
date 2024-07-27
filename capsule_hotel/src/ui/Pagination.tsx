@@ -1,7 +1,13 @@
+import React from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { PAGE_SIZE } from "../utils/constants";
+
+interface PaginationProps {
+  count: number;
+  // count: any
+}
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -24,10 +30,14 @@ const Buttons = styled.div`
   gap: 0.6rem;
 `;
 
-const PaginationButton = styled.button`
+interface PaginationButtonProps {
+  active?: boolean;
+}
+
+const PaginationButton = styled.button<PaginationButtonProps>`
   background-color: ${(props) =>
-    props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
-  color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
+    props.active ? "var(--color-brand-600)" : "var(--color-grey-50)"};
+  color: ${(props) => (props.active ? "var(--color-brand-50)" : "inherit")};
   border: none;
   border-radius: var(--border-radius-sm);
   font-weight: 500;
@@ -59,7 +69,7 @@ const PaginationButton = styled.button`
   }
 `;
 
-function Pagination({ count }) {
+const Pagination: React.FC<PaginationProps> = ({ count }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = !searchParams.get("page")
     ? 1
@@ -67,47 +77,47 @@ function Pagination({ count }) {
 
   const pageCount = Math.ceil(count / PAGE_SIZE);
 
-  function nextPage() {
+  const nextPage = () => {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
 
-    searchParams.set("page", next);
+    searchParams.set("page", next.toString());
     setSearchParams(searchParams);
-  }
+  };
 
-  function prevPage() {
+  const prevPage = () => {
     const prev = currentPage === 1 ? currentPage : currentPage - 1;
 
-    searchParams.set("page", prev);
+    searchParams.set("page", prev.toString());
     setSearchParams(searchParams);
-  }
+  };
 
   if (pageCount <= 1) return null;
 
   return (
     <StyledPagination>
       <P>
-        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+        총 페이지 중 <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> 부터{" "}
         <span>
           {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
         </span>{" "}
-        of <span>{count}</span> results
+        까지 <span>{count}</span> 결과
       </P>
 
       <Buttons>
         <PaginationButton onClick={prevPage} disabled={currentPage === 1}>
-          <HiChevronLeft /> <span>Previous</span>
+          <HiChevronLeft /> <span>뒤로</span>
         </PaginationButton>
 
         <PaginationButton
           onClick={nextPage}
           disabled={currentPage === pageCount}
         >
-          <span>Next</span>
+          <span>다음</span>
           <HiChevronRight />
         </PaginationButton>
       </Buttons>
     </StyledPagination>
   );
-}
+};
 
 export default Pagination;

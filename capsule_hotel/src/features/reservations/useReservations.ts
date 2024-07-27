@@ -15,14 +15,16 @@ export function useReservations() {
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
 
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+
   const {
     isPending,
-    data: reservations,
+    data: { data: reservations, count } = {},
     error,
   } = useQuery({
-    queryKey: ["reservations", filter, sortBy],
-    queryFn: () => getReservations({ filter, sortBy }),
+    queryKey: ["reservations", filter, sortBy, page],
+    queryFn: () => getReservations({ filter, sortBy, page }),
   });
 
-  return { isPending, error, reservations };
+  return { isPending, error, reservations, count };
 }
