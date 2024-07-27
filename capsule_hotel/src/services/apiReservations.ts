@@ -2,7 +2,13 @@ import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getReservations() {
-  const { data, error } = await supabase.from("reservations").select("*");
+  // const { data, error } = await supabase.from("reservations").select("*");
+  let query = supabase
+    .from("reservations")
+    .select(
+      "id, created_at, startDate, endDate, numNights, numCustomers, status, totalPrice, capsules(name), customers(fullName, email)",
+      { count: "exact" }
+    );
 
   if (error) {
     console.error(error);
