@@ -18,7 +18,7 @@ function ReservationTableOperations() {
       <SortBy
         options={[
           { value: "startDate-desc", label: "날짜별 정렬 (최근 항목 먼저)" },
-          { value: "startDate-asc", label: "날짜별 정렬 (이전 항목 먼저)" },
+          { value: "startDate-asc", label: "날짜별 정렬 (과거 항목 먼저)" },
           {
             value: "totalPrice-desc",
             label: "큰 금액 순으로 정렬",
