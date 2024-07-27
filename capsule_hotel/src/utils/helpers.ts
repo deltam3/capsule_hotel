@@ -1,15 +1,18 @@
 import { formatDistance, parseISO } from "date-fns";
 import { differenceInDays } from "date-fns";
+import { ko } from "date-fns/locale";
 
 export const subtractDates = (dateStr1, dateStr2) =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
-export const formatDistanceFromNow = (dateStr) =>
+export const formatDistanceFromNow = (dateStr: string) =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
   })
-    .replace("about ", "")
-    .replace("in", "In");
+    .replace("about ", "약")
+    .replace("in", "도착 예정 남은 일: ")
+    .replace("days", "일 전에")
+    .replace("ago", "시작");
 
 export const getToday = function (options = {}) {
   const today = new Date();

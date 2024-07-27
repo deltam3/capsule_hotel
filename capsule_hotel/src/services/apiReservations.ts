@@ -2,8 +2,7 @@ import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getReservations() {
-  // const { data, error } = await supabase.from("reservations").select("*");
-  let query = supabase
+  const { data, error } = await supabase
     .from("reservations")
     .select(
       "id, created_at, startDate, endDate, numNights, numCustomers, status, totalPrice, capsules(name), customers(fullName, email)",

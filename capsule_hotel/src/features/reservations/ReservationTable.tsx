@@ -6,10 +6,9 @@ import { useReservations } from "./useReservations";
 import Spinner from "../../ui/Spinner";
 
 function ReservationTable() {
-  const { reservations, isLoading, count } = useReservations();
+  const { isPending, reservations } = useReservations();
 
-  if (isLoading) return <Spinner />;
-
+  if (isPending) return <Spinner />;
   if (!reservations.length) return <Empty resourceName="예약" />;
 
   return (

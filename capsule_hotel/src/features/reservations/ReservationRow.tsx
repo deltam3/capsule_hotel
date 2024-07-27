@@ -30,7 +30,7 @@ const Stacked = styled.div`
 `;
 
 const Amount = styled.div`
-  font-family: "Sono";
+  font-family: "Rubik";
   font-weight: 500;
 `;
 
