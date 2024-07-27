@@ -27,8 +27,6 @@ export async function getReservations({ filter, sortBy, page }) {
 
   const { data, error, count } = await query;
 
-  console.log(data);
-
   if (error) {
     console.error(error);
     throw new Error("예약 가져오기 실패");
