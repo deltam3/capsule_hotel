@@ -2,6 +2,20 @@ import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
 
+export interface Option {
+  value: string;
+  label: string;
+}
+
+export interface FilterProps {
+  filterField: string;
+  options: Option[];
+}
+
+export interface SortByProps {
+  options: Option[];
+}
+
 function CapsuleTableOperations() {
   return (
     <TableOperations>

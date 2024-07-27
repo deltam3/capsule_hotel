@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { formatCurrency } from "../../utils/helper";
+import { formatCurrency } from "../../utils/helpers";
 import Modal from "../../ui/Modal";
 import CreateCapsuleForm from "./CreateCapsuleForm";
 import ConfirmDelete from "../../ui/ConfirmDelete";
