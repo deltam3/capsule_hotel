@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import {
@@ -7,34 +6,9 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern,
 } from "react-icons/hi2";
-
 import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
-
-interface Reservation {
-  created_at: string;
-  startDate: string;
-  endDate: string;
-  numNights: number;
-  numCustomers: number;
-  capsulePrice: number;
-  extrasPrice: number;
-  totalPrice: number;
-  hasMeal: boolean;
-  observations?: string;
-  isPaid: boolean;
-  customers: {
-    fullName: string;
-    email: string;
-    country: string;
-    countryFlag?: string;
-    nationalID: string;
-  };
-  capsules: {
-    name: string;
-  };
-}
 
 const StyledReservationDataBox = styled.section`
   background-color: var(--color-grey-0);
@@ -123,13 +97,35 @@ const Footer = styled.footer`
   text-align: right;
 `;
 
+interface Reservation {
+  created_at: string;
+  startDate: string;
+  endDate: string;
+  numNights: number;
+  numCustomers: number;
+  capsulePrice: number;
+  extrasPrice: number;
+  totalPrice: number;
+  hasMeal: boolean;
+  observations?: string;
+  isPaid: boolean;
+  customers: {
+    fullName: string;
+    email: string;
+    country: string;
+    countryFlag?: string;
+    nationalID: string;
+  };
+  capsules: {
+    name: string;
+  };
+}
+
 interface ReservationDataBoxProps {
   reservation: Reservation;
 }
 
-const ReservationDataBox: React.FC<ReservationDataBoxProps> = ({
-  reservation,
-}) => {
+function ReservationDataBox({ reservation }: ReservationDataBoxProps) {
   const {
     created_at,
     startDate,
@@ -158,7 +154,7 @@ const ReservationDataBox: React.FC<ReservationDataBoxProps> = ({
         <div>
           <HiOutlineHomeModern />
           <p>
-            {numNights}일 숙박 예정 <span>{capsuleName}</span>
+            <span>{capsuleName}</span>방에서 {numNights} 일 숙박 예정
           </p>
         </div>
 
@@ -173,15 +169,15 @@ const ReservationDataBox: React.FC<ReservationDataBoxProps> = ({
 
       <Section>
         <Customer>
-          {countryFlag && <Flag src={countryFlag} alt={`${country} 국가`} />}
+          {countryFlag && <Flag src={countryFlag} alt={`${country} 국기`} />}
           <p>
             {customerName}{" "}
-            {numCustomers > 1 ? `+ ${numCustomers - 1} customers` : ""}
+            {numCustomers > 1 ? `+ ${numCustomers - 1} 손님들` : ""}
           </p>
           <span>&bull;</span>
           <p>{email}</p>
           <span>&bull;</span>
-          <p>주민번호: {nationalID}</p>
+          <p>주민번호 {nationalID}</p>
         </Customer>
 
         {observations && (
@@ -193,18 +189,18 @@ const ReservationDataBox: React.FC<ReservationDataBoxProps> = ({
           </DataItem>
         )}
 
-        <DataItem icon={<HiOutlineCheckCircle />} label="식사 포함 여부">
-          {hasMeal ? "Yes" : "No"}
+        <DataItem icon={<HiOutlineCheckCircle />} label="식사 포함?">
+          {hasMeal ? "예" : "아니오"}
         </DataItem>
 
         <Price isPaid={isPaid}>
-          <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
+          <DataItem icon={<HiOutlineCurrencyDollar />} label={`총 가격`}>
             {formatCurrency(totalPrice)}
 
             {hasMeal &&
-              ` (${formatCurrency(capsulePrice)} 숙박 비용 + ${formatCurrency(
+              ` (${formatCurrency(capsulePrice)} 캡슐방 비용 + ${formatCurrency(
                 extrasPrice
-              )} 식사 가격)`}
+              )} 식사비용)`}
           </DataItem>
 
           <p>{isPaid ? "이미 결제" : "도착시 결제 예정"}</p>
@@ -212,10 +208,10 @@ const ReservationDataBox: React.FC<ReservationDataBoxProps> = ({
       </Section>
 
       <Footer>
-        <p>{format(new Date(created_at), "EEE, MMM dd yyyy, p")} 예약</p>
+        <p> {format(new Date(created_at), "EEE, MMM dd yyyy, p")} 예정</p>
       </Footer>
     </StyledReservationDataBox>
   );
-};
+}
 
 export default ReservationDataBox;

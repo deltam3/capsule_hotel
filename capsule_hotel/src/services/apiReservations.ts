@@ -35,7 +35,7 @@ export async function getReservations({ filter, sortBy, page }) {
   return { data, count };
 }
 
-export async function getReservation(id) {
+export async function getReservation(id: number) {
   const { data, error } = await supabase
     .from("reservations")
     .select("*, capsules(*), customers(*)")

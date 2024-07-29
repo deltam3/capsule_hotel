@@ -4,9 +4,8 @@ import { getReservation } from "../../services/apiReservations";
 
 export function useReservation() {
   const { reservationId } = useParams();
-
   const {
-    isLoading,
+    isPending,
     data: reservation,
     error,
   } = useQuery({
@@ -15,5 +14,5 @@ export function useReservation() {
     retry: false,
   });
 
-  return { isLoading, error, reservation };
+  return { isPending, error, reservation };
 }

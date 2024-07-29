@@ -9,10 +9,11 @@ export const formatDistanceFromNow = (dateStr: string) =>
   formatDistance(parseISO(dateStr), new Date(), {
     addSuffix: true,
   })
-    .replace("about ", "약")
+    .replace("about ", "약 ")
     .replace("in", "도착 예정 남은 일: ")
     .replace("days", "일 전에")
-    .replace("ago", "시작");
+    .replace("ago", "시작")
+    .replace("hours", "시간 뒤");
 
 export const getToday = function (options = {}) {
   const today = new Date();

@@ -1,3 +1,4 @@
+import React from "react";
 import ReservationRow from "./ReservationRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
@@ -6,11 +7,11 @@ import { useReservations } from "./useReservations";
 import Spinner from "../../ui/Spinner";
 import Pagination from "../../ui/Pagination";
 
-function ReservationTable() {
+const ReservationTable: React.FC = () => {
   const { isPending, reservations, count } = useReservations();
 
   if (isPending) return <Spinner />;
-  if (!reservations.length) return <Empty resourceName="예약" />;
+  if (!reservations?.length) return <Empty resourceName="예약" />;
 
   const safeCount = count ?? 0;
 
@@ -39,6 +40,6 @@ function ReservationTable() {
       </Table>
     </Menus>
   );
-}
+};
 
 export default ReservationTable;

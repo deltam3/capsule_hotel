@@ -5,7 +5,7 @@ import { deleteReservation as deleteReservationApi } from "../../services/apiRes
 export function useDeleteReservation() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate: deleteReservation } = useMutation({
+  const { isPending: isDeleting, mutate: deleteReservation } = useMutation({
     mutationFn: deleteReservationApi,
     onSuccess: () => {
       toast.success("예약 삭제 완료.");

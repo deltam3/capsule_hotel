@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
@@ -20,7 +21,19 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
+interface ConfirmDeleteProps {
+  resourceName: string;
+  onConfirm: () => void;
+  disabled?: boolean;
+  onCloseModal?: () => void;
+}
+
+function ConfirmDelete({
+  resourceName,
+  onConfirm,
+  disabled,
+  onCloseModal,
+}: ConfirmDeleteProps) {
   return (
     <StyledConfirmDelete>
       <Heading as="h3">{resourceName} 삭제</Heading>
