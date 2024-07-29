@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import Heading from "../ui/Heading";
+import Logo from "../ui/Logo";
+import LoginForm from "../features/authentication/LoginForm";
 
 const LoginLayout = styled.main`
   display: grid;
@@ -11,7 +14,13 @@ const LoginLayout = styled.main`
 `;
 
 function Login() {
-  return <LoginLayout>로그인</LoginLayout>;
+  return (
+    <LoginLayout>
+      <Logo />
+      <Heading as="h4">로그인</Heading>
+      <LoginForm />
+    </LoginLayout>
+  );
 }
 
 export default Login;
