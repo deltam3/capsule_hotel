@@ -319,10 +319,10 @@ function List({ id, children }) {
 }
 
 type MenuButtonProps = {
-  children: React.ReactNode; // Use React.ReactNode for children
-  icon?: React.ReactNode; // Optional icon prop, can be any React node (e.g., icon component)
-  onClick?: () => void; // Optional onClick handler
-  disabled?: boolean; // Optional disabled prop
+  children: React.ReactNode;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
 };
 
 function Button({ children, icon, onClick, disabled }: MenuButtonProps) {
