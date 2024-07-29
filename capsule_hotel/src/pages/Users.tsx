@@ -1,7 +1,13 @@
+import SignupForm from "../features/authentication/SignupForm";
 import Heading from "../ui/Heading";
 
-const Users = () => {
-  return <Heading as="h1">새로운 유저 생성하기</Heading>;
-};
+function NewUsers() {
+  return (
+    <>
+      <Heading as="h1">새로운 직원 계정 만들기</Heading>
+      <SignupForm />
+    </>
+  );
+}
 
-export default Users;
+export default NewUsers;
