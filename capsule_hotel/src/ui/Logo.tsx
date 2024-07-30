@@ -13,12 +13,12 @@ const Text = styled.p`
   font-weight: 700;
 `;
 
-function Logo() {
+function Logo({ admin = true }) {
   return (
     <StyledLogo>
       <Img src="/capsule.png" alt="Logo" />
       <p>Casule Hotel</p>
-      <Text>관리자 페이지</Text>
+      {admin && <Text>관리자 페이지</Text>}
     </StyledLogo>
   );
 }

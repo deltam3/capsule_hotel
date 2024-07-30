@@ -6,6 +6,9 @@ import { useRecentStays } from "./useRecentStays";
 import { useRecentReservations } from "./useRecentReservations";
 import { useCapsules } from "../capsules/useCapsules";
 import { Database } from "../../../database.types";
+import SalesChart from "./SalesChart";
+import DurationChart from "./DurationChart";
+import Motivate from "./Motivate";
 
 interface UseRecentReservationsResult {
   reservations: Database["public"]["Tables"]["reservations"][] | any;
@@ -50,6 +53,9 @@ function DashboardLayout() {
         numDays={numDays}
         capsuleCount={capsules.length}
       />
+      <Motivate />
+      <DurationChart confirmedStays={confirmedStays} />
+      <SalesChart reservations={reservations} numDays={numDays} />
     </StyledDashboardLayout>
   );
 }
