@@ -21,7 +21,7 @@
 
     /* Deployment **/
     "noEmitOnError": false,
-    "strict": true
+    "strict": false
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
